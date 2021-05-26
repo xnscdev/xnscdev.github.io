@@ -1,53 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,400;0,900;1,100;1,900&display=swap");
+
+.hero {
+  background-color: #ee964b;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+#party {
+  position: fixed;
+  backdrop-filter: blur(6px);
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.modal {
+  background-color: white;
+  margin: auto;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 3px 4px 10px #000;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  margin-left: auto;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.hero * {
+  margin-bottom: 15px;
+}
+
+.nav-body {
+  padding: 40px;
+}
+
+button {
+  border: 0;
+  background-color: #13c5f6;
+  padding-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+  border-radius: 5px;
+  color: white;
+  font-size: medium;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #08b2e3;
+  transform: rotate(-3deg);
+}
+
 #bank {
-    background-color: orange;
-    overflow-x: scroll;
-    white-space: nowrap;
-    min-height: 290px;
+  background-color: #f95738;
+  width: 25vw;
+  min-width: min-content;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: visible;
+  height: 100vh;
+  left: 0;
+  top: 0;
 }
 
 .tg {
-    background-color: #dddddd;
-    white-space: nowrap;
-    min-height: 290px;
+  min-height: 290px;
+  margin-bottom: 30px;
+  background-color: #57a773;
 }
 
 .tile {
-    background-color: #eeeeee;
-    width: 240px;
-    height: 270px;
-    text-align: center;
-    display: inline-block;
-    margin: 10px;
+  background-color: #eeeeee;
+  height: 270px;
+  text-align: center;
+  display: inline-block;
+  margin: 15px;
+}
+
+.tile * {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.status {
+  height: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+  padding: 3px 8px 3px 8px;
+  border-radius: 10px;
+  color: white;
+  font-size: smaller;
+}
+
+.red {
+  background-color: #f83812;
+}
+
+.green {
+  background-color: #79b990;
 }
 
 .tc {
-    width: 240px;
-    height: 240px;
-    display: table-cell;
-    vertical-align: middle;
+  width: 240px;
+  height: 240px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.tc:hover {
+  cursor: grab;
+}
+.tc:active {
+  cursor: grabbing;
 }
 
 .tile img {
-    max-width: 220px;
+  max-width: 220px;
+}
+
+* {
+  font-family: "Public Sans", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .right {
-    float: right;
+  float: right;
 }
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 .soltab {
-    margin: 0 auto;
-    text-align: left;
+  margin: 0 auto;
+  text-align: left;
 }
 
 .soltab td {
-    padding: 0 10px;
+  padding: 0 10px;
 }
 
 .soltab td.hspace {
-    min-width: 50px;
+  min-width: 50px;
 }
