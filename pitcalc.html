@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <link rel="stylesheet" href="fmt.css">
+    <title>Pit XP Calculator</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Pit XP Calculator</h1>
+      <h4>Updated edition</h2>
+    </div>
+    <div class="main">
+      <h3>Enter your stats here</h3>
+      <h5>Someday you might be able to enter your username and automatically
+	fetch stats</h5>
+      <label for="cp">Current prestige:</label>
+      <input type="number" id="cp" min="0" max="35" value="0"><br><br>
+      <label for="cl">Current level:</label>
+      <input type="number" id="cl" min="1" max="120" value="1"><br>
+      <div id="lb" class="bad">Cannot be under level 50 with fast pass</div><br>
+      <label for="xnl">XP to next level:</label>
+      <input type="number" id="xnl" min="1" max="151500" value="15"><br>
+      <div id="xb" class="bad">XP to next level is too large</div><br>
+      <input type="checkbox" id="fp"> <label for="fp">Fast pass</label><br><br>
+
+      <h3>Prestige Progress</h3>
+      Total XP: <span id="tx">0</span><br><br>
+      XP this prestige: <span id="px">0</span><br><br>
+      XP to next prestige: <span id="nx">65,935</span><br><br>
+      Percent progress to next prestige: <span id="pp">0.0000</span>%<br><br>
+
+      <h3>Level Progress</h3>
+      <label for="sl">Select level:</label>
+      <input type="number" id="sl" min="2" max="120" value="120"><br>
+      <div id="sb" class="bad">Please select a level greater than your current
+	level</div><br>
+      XP to selected level: <span id="nd">65,935</span><br><br>
+      Percent progress to selected level: <span id="np">0.0000</span>%<br><br>
+    </div>
+    <script type="text/javascript" src="pitcalc.js"></script>
+  </body>
+</html>

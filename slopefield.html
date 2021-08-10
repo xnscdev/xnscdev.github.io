@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Slope Field Generator</title>
+  </head>
+  <body>
+    <h1>Slope Field Generator</h1>
+    <label for="equation">Enter differential equation: dy/dx = </label>
+    <input type="text" id="equation">
+    <input type="submit" value="Graph" onclick="updateGraph();">
+    <br><br><br>
+    <canvas id="graph" width="760" height="760"
+	    style="display: block; margin-left: auto; margin-right: auto;">
+    </canvas>
+    <script type="text/javascript" src="slopefield.js"></script>
+  </body>
+</html>

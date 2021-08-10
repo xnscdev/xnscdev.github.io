@@ -1,0 +1,25 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #eeeeee;
+    margin: 0;
+    padding: 0;
+}
+
+div.header {
+    background-color: #dddddd;
+    padding: 20px;
+}
+
+div.main {
+    padding: 20px;
+}
+
+div.bad {
+    font-size: 70%;
+    color: red;
+    display: none;
+}
+
+h1 {
+    margin: 0;
+}
