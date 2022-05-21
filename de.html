@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-us" class="h-100">
+<head>
+    <title>Differential Equation Graphing</title>
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+</head>
+<body class="h-100">
+<div class="container-fluid h-100">
+    <div class="row pd-5 h-100">
+        <div class="col-lg-4 bg-light">
+            <div class="jumbotron mt-3">
+                <h1 class="h1">Differential Equation Graphing</h1>
+            </div>
+            <label for="equation">Enter differential equation:</label>
+            <br>
+            <form class="form-inline">
+                dy/dx = <input type="text" class="form-control form-inline" id="equation">
+            </form>
+            <br>
+            Enter point for particular solution:<br>
+            <form class="form-inline">
+                (<input type="number" class="form-control" step="any" id="px" value="0">,
+                <input type="number" class="form-control" step="any" id="py" value="0">)
+            </form>
+            <br><small class="text-danger" style="display: none;" id="invalid">Invalid expression</small><br>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="slope_field" checked>
+                <label class="form-check-label" for="slope_field">Graph slope field</label>
+            </div>
+            <br><br><input type="submit" class="btn btn-primary" value="Graph" onclick="updateGraph();">
+        </div>
+        <div class="col-lg-8 align-self-center">
+            <div class="text-center">
+                <canvas id="graph" width="760" height="760"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="lib/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="lib/bootstrap.min.js" type="text/javascript"></script>
+<script src="lib/tex-mml-chtml.js" type="text/javascript"></script>
+<script src="de.js" type="text/javascript"></script>
+</body>
+</html>
