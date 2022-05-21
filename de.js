@@ -1,265 +1,4 @@
-const equation = document.getElementById("equation");
 const graph = document.getElementById("graph");
-
-class Expr {
-    constructor() {
-    }
-
-    eval(x, y) {
-        throw null;
-    }
-}
-
-class Numeral extends Expr {
-    constructor(value) {
-        super();
-        this.value = value;
-    }
-
-    eval(x, y) {
-        return this.value;
-    }
-}
-
-class UnaryMinus extends Expr {
-    constructor(expr) {
-        super();
-        this.expr = expr;
-    }
-
-    eval(x, y) {
-        return -this.expr.eval(x, y);
-    }
-}
-
-const ADD = 1;
-const SUB = 2;
-const MUL = 3;
-const DIV = 4;
-const EXP = 5;
-
-const ARITHTYPE = {
-    '+': ADD,
-    '-': SUB,
-    '*': MUL,
-    '/': DIV,
-    '^': EXP
-};
-
-const PREC = {
-    '+': 1,
-    '-': 1,
-    '*': 2,
-    '/': 2,
-    '^': 3
-};
-
-class Arithmetic extends Expr {
-    constructor(lhs, rhs, op) {
-        super();
-        this.lhs = lhs;
-        this.rhs = rhs;
-        this.op = op;
-    }
-
-    eval(x, y) {
-        switch (this.op) {
-            case ADD:
-                return this.lhs.eval(x, y) + this.rhs.eval(x, y);
-            case SUB:
-                return this.lhs.eval(x, y) - this.rhs.eval(x, y);
-            case MUL:
-                return this.lhs.eval(x, y) * this.rhs.eval(x, y);
-            case DIV:
-                return this.lhs.eval(x, y) / this.rhs.eval(x, y);
-            case EXP:
-                return Math.pow(this.lhs.eval(x, y), this.rhs.eval(x, y));
-            default:
-                throw null;
-        }
-    }
-}
-
-class Function extends Expr {
-    constructor(arg, func) {
-        super();
-        this.arg = arg;
-        this.func = func;
-    }
-
-    eval(x, y) {
-        return this.func(this.arg.eval(x, y));
-    }
-}
-
-const X = 0;
-const Y = 1;
-
-class Variable extends Expr {
-    constructor(name) {
-        super();
-        if (name === "x")
-            this.name = X;
-        else if (name === "y")
-            this.name = Y;
-        else
-            throw null;
-    }
-
-    eval(x, y) {
-        return this.name ? y : x;
-    }
-}
-
-let text;
-let save;
-
-function nextChar() {
-    let c;
-    if (save) {
-        c = save;
-        save = null;
-        return c;
-    }
-    do {
-        if (!text.length)
-            return null;
-        c = text.charAt(0);
-        text = text.substring(1);
-    }
-    while (c === ' ');
-    return c;
-}
-
-function parseAtomic() {
-    let c = nextChar();
-    if (!c)
-        return null;
-    if (c === '(') {
-        let expr = parseExpr();
-        if (!expr)
-            return null;
-        if (nextChar() != ')')
-            return null;
-        return expr;
-    }
-    else if (c === 'x' || c === 'y')
-        return new Variable(c);
-    else if (c === 'e')
-        return new Numeral(Math.E);
-    else if (c === 'p') {
-        if (nextChar() === 'i')
-            return new Numeral(Math.PI);
-    }
-    else if (c === 'c') {
-        if (text.startsWith('os')) {
-            text = text.substring(2);
-            let arg = parseBasic();
-            if (!arg)
-                return null;
-            return new Function(arg, Math.cos);
-        }
-    }
-    else if (c === 's') {
-        if (text.startsWith('in')) {
-            text = text.substring(2);
-            let arg = parseBasic();
-            if (!arg)
-                return null;
-            return new Function(arg, Math.sin);
-        }
-    }
-    else if (c === 't') {
-        if (text.startsWith('an')) {
-            text = text.substring(2);
-            let arg = parseBasic();
-            if (!arg)
-                return null;
-            return new Function(arg, Math.tan);
-        }
-    }
-    else if (c === '-') {
-        let expr = parseBasic();
-        if (expr === null)
-            return null;
-        return new UnaryMinus(expr);
-    }
-    else if (c >= '0' && c <= '9') {
-        let value = 0;
-        while (c && c >= '0' && c <= '9') {
-            value *= 10;
-            value += parseInt(c);
-            c = nextChar();
-        }
-        save = c;
-        return new Numeral(value);
-    }
-    return null;
-}
-
-function parseBasic() {
-    let expr = parseAtomic();
-    if (!expr)
-        return null;
-    while (true) {
-        let c = nextChar();
-        if (!c)
-            return expr;
-        save = c;
-        if (c === ')' || getPrec(c))
-            return expr;
-        let rhs = parseAtomic();
-        if (!rhs)
-            return null;
-        expr = new Arithmetic(expr, rhs, MUL);
-    }
-}
-
-function getPrec(c) {
-    if (c === '+' || c === '-' || c === '*' || c === '/' || c === '^')
-        return PREC[c];
-    return 0;
-}
-
-function parseBinary(lhs, minprec) {
-    while (true) {
-        let c = nextChar();
-        let prec = getPrec(c);
-        if (prec < minprec) {
-            save = c;
-            return lhs;
-        }
-        if (!c)
-            return lhs;
-        if (c === ')') {
-            save = c;
-            return lhs;
-        }
-        let op = ARITHTYPE[c];
-        if (!op)
-            op = MUL;
-
-        let rhs = parseBasic();
-        if (!rhs)
-            return null;
-        c = nextChar();
-        save = c;
-        let nextprec = getPrec(c);
-        if (prec < nextprec) {
-            rhs = parseBinary(rhs, prec + 1);
-            if (!rhs)
-                return null;
-        }
-        lhs = new Arithmetic(lhs, rhs, op);
-    }
-}
-
-function parseExpr() {
-    let expr = parseBasic();
-    if (!expr)
-        return null;
-    return parseBinary(expr, 0);
-}
 
 function canvasX(x) {
     return 40 * (x + 9) + 20;
@@ -299,6 +38,13 @@ function drawSlopeFields(ctx, expr) {
     }
 }
 
+function drawPoint(ctx, x, y) {
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+}
+
 function drawGraph(ctx) {
     ctx.clearRect(0, 0, graph.width, graph.height);
 
@@ -335,18 +81,87 @@ function drawGraph(ctx) {
     }
 }
 
+function drawLine(ctx, a, b) {
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.moveTo(a[0], a[1]);
+    ctx.lineTo(b[0], b[1]);
+    ctx.stroke();
+    ctx.lineWidth = 1;
+}
+
+function drawSolution(ctx, expr) {
+    let last = null;
+    if (document.getElementById("euler_method").checked) {
+        let x = parseFloat($("#px").val());
+        let y = parseFloat($("#py").val());
+        let end = parseFloat($("#endpoint").val());
+        let step = parseFloat($("#step").val());
+        if (Math.sign(step) !== Math.sign(end - x))
+            step = -step;
+        for (let i = x; i - step !== end; i += step) {
+            let bx = canvasX(i);
+            let by = canvasY(y);
+            if (last)
+                drawLine(ctx, last, [bx, by]);
+            drawPoint(ctx, bx, by);
+            last = [bx, by];
+            y += expr.eval(i, y) * step;
+        }
+    }
+    else {
+        const step = 0.01;
+        let x = parseFloat($("#px").val());
+        let oy = parseFloat($("#py").val());
+        let y = oy;
+        for (let i = x; i <= 9.5; i += step) {
+            let bx = canvasX(i);
+            let by = canvasY(y);
+            if (last)
+                drawLine(ctx, last, [bx, by]);
+            last = [bx, by];
+            y += expr.eval(i, y) * step;
+        }
+        last = null;
+        y = oy;
+        for (let i = x; i >= -9.5; i -= step) {
+            let bx = canvasX(i);
+            let by = canvasY(y);
+            if (last)
+                drawLine(ctx, last, [bx, by]);
+            last = [bx, by];
+            y -= expr.eval(i, y) * step;
+        }
+        drawPoint(ctx, canvasX(x), canvasY(oy));
+    }
+}
+
 function updateGraph() {
-    text = equation.value;
+    text = $("#equation").val();
     let expr = parseExpr();
     if (!expr) {
         document.getElementById("invalid").style.display = "block";
         return;
     }
+    else
+        document.getElementById("invalid").style.display = "none";
     let ctx = graph.getContext("2d");
     drawGraph(ctx);
 
     if (document.getElementById("slope_field").checked)
         drawSlopeFields(ctx, expr);
+    if (document.getElementById("sol").checked)
+        drawSolution(ctx, expr);
 }
 
-drawGraph(graph.getContext("2d"));
+$(document).ready(() => {
+    drawGraph(graph.getContext("2d"));
+    $("#euler_method").change(() => {
+        if ($("#euler_method").is(":checked")) {
+            $(".euler").removeAttr("disabled");
+        }
+        else {
+            $(".euler").attr("disabled", "disabled");
+        }
+    });
+});
