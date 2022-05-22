@@ -1,6 +1,10 @@
 /*
 Simple expression parsing library. Supports basic arithmetic, constants e and pi, basic trig functions, and variables.
 
+Notes:
+* Parses -x^2 as (-x)^2, use -(x^2) instead
+* Parses sinxcosx as sin(xcosx), use (sinx)(cosx) instead
+
 MIT License
 
 Copyright (c) 2021-2022 Isaac Liu

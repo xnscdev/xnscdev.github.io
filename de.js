@@ -90,6 +90,14 @@ function drawLine(ctx, a, b) {
     ctx.lineWidth = 1;
 }
 
+function fillPointsTable(table) {
+    let str = "";
+    for (let i = 0; i < table.length; i++) {
+        str += "<tr><td>" + table[i][0].toFixed(3) + "</td><td>" + table[i][1].toFixed(3) + "</td></tr>";
+    }
+    $("#points_table").html(str);
+}
+
 function drawSolution(ctx, expr) {
     let last = null;
     if (document.getElementById("euler_method").checked) {
@@ -97,20 +105,41 @@ function drawSolution(ctx, expr) {
         let y = parseFloat($("#py").val());
         let end = parseFloat($("#endpoint").val());
         let step = parseFloat($("#step").val());
-        if (Math.sign(step) !== Math.sign(end - x))
-            step = -step;
-        for (let i = x; i - step !== end; i += step) {
-            let bx = canvasX(i);
-            let by = canvasY(y);
-            if (last)
-                drawLine(ctx, last, [bx, by]);
-            drawPoint(ctx, bx, by);
-            last = [bx, by];
-            y += expr.eval(i, y) * step;
+        let points = [];
+        if (!step)
+            step = 1;
+        if (end < x) {
+            if (step > 0)
+                step = -step;
+            for (let i = x; i >= end; i += step) {
+                let bx = canvasX(i);
+                let by = canvasY(y);
+                if (last)
+                    drawLine(ctx, last, [bx, by]);
+                drawPoint(ctx, bx, by);
+                last = [bx, by];
+                points.push([i, y]);
+                y += expr.eval(i, y) * step;
+            }
         }
+        else {
+            if (step < 0)
+                step = -step;
+            for (let i = x; i <= end; i += step) {
+                let bx = canvasX(i);
+                let by = canvasY(y);
+                if (last)
+                    drawLine(ctx, last, [bx, by]);
+                drawPoint(ctx, bx, by);
+                last = [bx, by];
+                points.push([i, y]);
+                y += expr.eval(i, y) * step;
+            }
+        }
+        fillPointsTable(points);
     }
     else {
-        const step = 0.01;
+        const step = 0.005;
         let x = parseFloat($("#px").val());
         let oy = parseFloat($("#py").val());
         let y = oy;
@@ -133,6 +162,7 @@ function drawSolution(ctx, expr) {
             y -= expr.eval(i, y) * step;
         }
         drawPoint(ctx, canvasX(x), canvasY(oy));
+        $("#points_table").html("");
     }
 }
 

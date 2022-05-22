@@ -34,7 +34,7 @@
                                               value="1" disabled></div>
                 </div>
                 <div class="row">
-                    <div class="col-4"><label for="endpoint">End X:</label></div>
+                    <div class="col-4"><label for="endpoint">Stop at x:</label></div>
                     <div class="col-8"><input type="number" class="form-control euler" step="any" id="endpoint" disabled></div>
                 </div>
             </div>
@@ -50,9 +50,19 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Graph" onclick="updateGraph();">
         </div>
-        <div class="col-lg-8 align-self-center">
-            <div class="text-center">
-                <canvas id="graph" width="760" height="760"></canvas>
+        <div class="col-lg-8">
+            <div class="text-center mt-5">
+                <canvas id="graph" width="760" height="760"></canvas><br><br>
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col">x</th>
+                        <th scope="col">y</th>
+                    </tr>
+                    </thead>
+                    <tbody id="points_table">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
