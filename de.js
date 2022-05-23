@@ -184,6 +184,30 @@ function updateGraph() {
         drawSolution(ctx, expr);
 }
 
+function evaluateX() {
+    const step = 0.00001;
+    text = $("#equation").val();
+    let expr = parseExpr();
+    if (!expr) {
+        document.getElementById("invalid").style.display = "block";
+        return;
+    }
+    let ex = parseFloat($("#eval_x").val());
+    let x = parseFloat($("#px").val());
+    let y = parseFloat($("#py").val());
+    if (ex > x) {
+        for (let i = x; i <= ex; i += step) {
+            y += expr.eval(i, y) * step;
+        }
+    }
+    else {
+        for (let i = x; i >= ex; i -= step) {
+            y -= expr.eval(i, y) * step;
+        }
+    }
+    $("#eval_result").html("Result: " + parseFloat(y.toFixed(4)));
+}
+
 $(document).ready(() => {
     drawGraph(graph.getContext("2d"));
     $("#euler_method").change(() => {

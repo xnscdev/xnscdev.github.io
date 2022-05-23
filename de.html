@@ -49,6 +49,14 @@
                 </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Graph" onclick="updateGraph();">
+            <div class="mt-5">
+                <div class="row">
+                    <div class="col-4"><label for="eval_x">Evaluate particular solution at x:</label></div>
+                    <div class="col-4"><input type="number" class="form-control" step="any" id="eval_x"></div>
+                    <div class="col-4"><input type="submit" class="btn btn-secondary" value="Evaluate" onclick="evaluateX();"></div>
+                </div>
+                <div id="eval_result"></div>
+            </div>
         </div>
         <div class="col-lg-8">
             <div class="text-center mt-5">
