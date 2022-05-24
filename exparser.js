@@ -1,5 +1,7 @@
 /*
-Simple expression parsing library. Supports basic arithmetic, constants e and pi, basic trig functions, and variables.
+Simple expression parsing library.
+
+Supported features: +, -, *, /, ^, ln, log, sqrt, cbrt, sin, cos, tan, e, pi
 
 Notes:
 * Parses -x^2 as (-x)^2, use -(x^2) instead
@@ -178,6 +180,22 @@ function parseAtomic() {
         if (nextChar() === 'i')
             return new Numeral(Math.PI);
     }
+    else if (c === 'l') {
+        if (text.startsWith('og')) {
+            text = text.substring(2);
+            let arg = parseBasic();
+            if (!arg)
+                return null;
+            return new Function(arg, Math.log10);
+        }
+        else if (text.startsWith('n')) {
+            text = text.substring(1);
+            let arg = parseBasic();
+            if (!arg)
+                return null;
+            return new Function(arg, Math.log);
+        }
+    }
     else if (c === 'c') {
         if (text.startsWith('os')) {
             text = text.substring(2);
@@ -185,6 +203,13 @@ function parseAtomic() {
             if (!arg)
                 return null;
             return new Function(arg, Math.cos);
+        }
+        else if (text.startsWith('brt')) {
+            text = text.substring(3);
+            let arg = parseBasic();
+            if (!arg)
+                return null;
+            return new Function(arg, Math.cbrt);
         }
     }
     else if (c === 's') {
@@ -194,6 +219,13 @@ function parseAtomic() {
             if (!arg)
                 return null;
             return new Function(arg, Math.sin);
+        }
+        else if (text.startsWith('qrt')) {
+            text = text.substring(3);
+            let arg = parseBasic();
+            if (!arg)
+                return null;
+            return new Function(arg, Math.sqrt);
         }
     }
     else if (c === 't') {
