@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <title>Calculator for Developers</title>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light mb-5">
+    <a class="navbar-brand" href="index.html">XNSC</a>
+</nav>
+<div class="container">
+    <h1>Calculator for Developers</h1>
+    <p>Expand the menus below for calculators for specific tasks</p>
+    <div class="mt-5">
+        <div class="card">
+            <div class="card-header" id="bitops_h">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#bitops" aria-expanded="false"
+                            aria-controls="bitops">Bitwise operations and conversions
+                    </button>
+                </h5>
+            </div>
+            <div id="bitops" class="collapse" aria-labelledby="bitops_h">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="b_bits" class="col-sm-4 col-form-label">Bits</label>
+                            <div class="col-sm-8 btn-group btn-group-toggle" data-toggle="buttons" id="b_bits">
+                                <label class="btn btn-primary"><input type="radio" name="b_bits" id="b_b8" autocomplete="off" onchange="opRecalc();">8</label>
+                                <label class="btn btn-primary"><input type="radio" name="b_bits" id="b_b16" autocomplete="off" onchange="opRecalc();">16</label>
+                                <label class="btn btn-primary active"><input type="radio" name="b_bits" id="b_b32" autocomplete="off" checked onchange="opRecalc();">32</label>
+                                <label class="btn btn-primary"><input type="radio" name="b_bits" id="b_b64" autocomplete="off" onchange="opRecalc();">64</label>
+                                <label class="btn btn-primary"><input type="radio" name="b_bits" id="b_b128" autocomplete="off" onchange="opRecalc();">128</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="b_op" class="col-sm-4 col-form-label">Operation</label>
+                            <div class="col-sm-8">
+                                <select id="b_op" class="form-control" onchange="opSel();">
+                                    <option selected disabled>Select...</option>
+                                    <option value="b_shl">Left shift (&lt;&lt;)</option>
+                                    <option value="b_shr">Right shift (&lt;&lt;)</option>
+                                    <option value="b_inv">Inverse (~)</option>
+                                    <option value="b_ext">Extract bits</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="b_f"></div>
+                    </form>
+                    <div id="b_out"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="dates_h">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#dates" aria-expanded="false"
+                            aria-controls="dates">Dates and UNIX timestamps
+                    </button>
+                </h5>
+            </div>
+            <div id="dates" class="collapse" aria-labelledby="dates_h">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="d_lt" class="col-sm-4 col-form-label">Local timestamp</label>
+                            <div class="col-sm-8">
+                                <input type="datetime-local" class="form-control" id="d_lt">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="d_gt" class="col-sm-4 col-form-label">UTC timestamp</label>
+                            <div class="col-sm-8">
+                                <input type="datetime-local" class="form-control" id="d_gt">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="d_ut" class="col-sm-4 col-form-label">UNIX timestamp</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="d_ut">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="devcalc.js"></script>
+</body>
+</html>

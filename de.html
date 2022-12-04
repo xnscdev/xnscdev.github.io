@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="lib/bootstrap.min.css">
 </head>
 <body class="h-100">
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">XNSC</a>
+</nav>
 <div class="container-fluid h-100">
     <div class="row pd-5 h-100">
         <div class="col-lg-4 bg-light">
@@ -14,7 +17,7 @@
             <label for="equation">Differential equation:</label>
             <br>
             <form class="form-inline">
-                dy/dx = <input type="text" class="form-control form-inline" id="equation">
+                dy/dx = &nbsp; <input type="text" class="form-control form-inline" id="equation">
             </form>
             <small class="text-danger" style="display: none;" id="invalid">Invalid expression</small>
             <br>Point on graph of particular solution:<br>
@@ -22,20 +25,18 @@
                 (<input type="number" class="form-control" step="any" id="px" value="0">,
                 <input type="number" class="form-control" step="any" id="py" value="0">)
             </form>
-            <br>
-            <div class="form-group">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="euler_method">
-                    <label class="form-check-label" for="euler_method">Use Euler's method</label>
-                </div>
-                <div class="row">
-                    <div class="col-4"><label for="step">Step size:</label></div>
-                    <div class="col-8"><input type="number" class="form-control euler" step="any" id="step"
-                                              value="1" disabled></div>
-                </div>
-                <div class="row">
-                    <div class="col-4"><label for="endpoint">Stop at x:</label></div>
-                    <div class="col-8"><input type="number" class="form-control euler" step="any" id="endpoint" disabled></div>
+            <div class="form-group form-check mt-4">
+                <input type="checkbox" class="form-check-input" id="euler_method">
+                <label class="form-check-label" for="euler_method">Use Euler's method</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-4"><label for="step">Step size:</label></div>
+                <div class="col-8"><input type="number" class="form-control euler" step="any" id="step"
+                                          value="1" disabled></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4"><label for="endpoint">Stop at x:</label></div>
+                <div class="col-8"><input type="number" class="form-control euler" step="any" id="endpoint" disabled>
                 </div>
             </div>
             <div class="form-group">
@@ -53,14 +54,16 @@
                 <div class="row">
                     <div class="col-4"><label for="eval_x">Evaluate particular solution at x:</label></div>
                     <div class="col-4"><input type="number" class="form-control" step="any" id="eval_x"></div>
-                    <div class="col-4"><input type="submit" class="btn btn-secondary" value="Evaluate" onclick="evaluateX();"></div>
+                    <div class="col-4"><input type="submit" class="btn btn-secondary" value="Evaluate"
+                                              onclick="evaluateX();"></div>
                 </div>
                 <div id="eval_result"></div>
             </div>
         </div>
         <div class="col-lg-8">
             <div class="text-center mt-5">
-                <canvas id="graph" width="760" height="760"></canvas><br><br>
+                <canvas id="graph" width="760" height="760"></canvas>
+                <br><br>
                 <table class="table table-sm">
                     <thead>
                     <tr>

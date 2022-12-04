@@ -1,42 +1,112 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <link rel="stylesheet" href="fmt.css">
-    <title>Pit XP Calculator</title>
-  </head>
-  <body>
-    <div class="header">
-      <h1>Pit XP Calculator</h1>
-      <h4>Updated edition</h2>
-    </div>
-    <div class="main">
-      <h3>Enter your stats here</h3>
-      <h5>Someday you might be able to enter your username and automatically
-	fetch stats</h5>
-      <label for="cp">Current prestige:</label>
-      <input type="number" id="cp" min="0" max="35" value="0"><br><br>
-      <label for="cl">Current level:</label>
-      <input type="number" id="cl" min="1" max="120" value="1"><br>
-      <div id="lb" class="bad">Cannot be under level 50 with fast pass</div><br>
-      <label for="xnl">XP to next level:</label>
-      <input type="number" id="xnl" min="1" max="151500" value="15"><br>
-      <div id="xb" class="bad">XP to next level is too large</div><br>
-      <input type="checkbox" id="fp"> <label for="fp">Fast pass</label><br><br>
-
-      <h3>Prestige Progress</h3>
-      Total XP: <span id="tx">0</span><br><br>
-      XP this prestige: <span id="px">0</span><br><br>
-      XP to next prestige: <span id="nx">65,935</span><br><br>
-      Percent progress to next prestige: <span id="pp">0.0000</span>%<br><br>
-
-      <h3>Level Progress</h3>
-      <label for="sl">Select level:</label>
-      <input type="number" id="sl" min="2" max="120" value="120"><br>
-      <div id="sb" class="bad">Please select a level greater than your current
-	level</div><br>
-      XP to selected level: <span id="nd">65,935</span><br><br>
-      Percent progress to selected level: <span id="np">0.0000</span>%<br><br>
-    </div>
-    <script type="text/javascript" src="pitcalc.js"></script>
-  </body>
+<head>
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <title>Hypixel Pit XP Calculator</title>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light mb-5">
+    <a class="navbar-brand" href="index.html">XNSC</a>
+</nav>
+<div class="container">
+    <h1>Hypixel Pit XP Calculator</h1>
+    <h6>Note: prestiges above 30 are probably not accurate</h6>
+    <form class="mt-5">
+        <div class="form-group row">
+            <label for="cp" class="col-sm-2 col-form-label">Current prestige</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="cp" min="0" max="35" value="0">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="cl" class="col-sm-2 col-form-label">Current level</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="cl" min="1" max="120" value="1">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <small id="lb" style="display: none;" class="form-text text-danger">Cannot be under level 50 with
+                        fast pass</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="xnl" class="col-sm-2 col-form-label">XP to next level</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="xnl" min="1" max="151500" value="15">
+                    <!-- remember to update max here when adding new prestiges! -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <small id="xb" style="display: none;" class="form-text text-danger">XP to next level is too
+                        large</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="sl" class="col-sm-2 col-form-label">Target level</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="sl" min="2" max="120" value="120">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <small id="sb" style="display: none;" class="form-text text-danger">Please select a level greater than your current level</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="fp">
+            <label for="fp" class="form-check-label">Fast pass</label>
+        </div>
+    </form>
+    <table class="table mt-5">
+        <tbody>
+        <tr>
+            <th colspan="2" class="bg-light">Prestige Progress</th>
+        </tr>
+        <tr>
+            <td class="w-50">Lifetime XP earned</td>
+            <td class="w-50"><span id="tx">0</span></td>
+        </tr>
+        <tr>
+            <td>XP earned this prestige</td>
+            <td><span id="px">0</span></td>
+        </tr>
+        <tr>
+            <td>XP to next prestige</td>
+            <td><span id="nx">65,935</span></td>
+        </tr>
+        <tr>
+            <td>Percent progress to next prestige</td>
+            <td><span id="pp">0.0000</span>%</td>
+        </tr>
+        </tbody>
+        <tbody>
+        <tr>
+            <th colspan="2" class="bg-light">Level Progress</th>
+        </tr>
+        <tr>
+            <td>XP to target level</td>
+            <td><span id="nd">65,935</span></td>
+        </tr>
+        <tr>
+            <td>Percent progress to target level</td>
+            <td><span id="np">0.0000</span>%</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" src="lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="pitcalc.js"></script>
+</body>
 </html>
