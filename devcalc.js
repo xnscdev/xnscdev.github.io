@@ -58,6 +58,18 @@ function b_inv() {
     if (v !== null) numFormCompSet("b_r", BigInt.asUintN(bits(), ~v));
 }
 
+function b_add() {
+    const a = numFormCompGet("b_n1");
+    const b = numFormCompGet("b_n2");
+    if (a !== null && b !== null) numFormCompSet("b_r", BigInt.asUintN(bits(), a + b));
+}
+
+function b_sub() {
+    const a = numFormCompGet("b_n1");
+    const b = numFormCompGet("b_n2");
+    if (a !== null && b !== null) numFormCompSet("b_r", BigInt.asUintN(bits(), a - b));
+}
+
 function b_shl() {
     const a = numFormCompGet("b_n1");
     const b = numFormCompGet("b_n2");

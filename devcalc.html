@@ -22,6 +22,7 @@
             </div>
             <div id="bitops" class="collapse" aria-labelledby="bitops_h">
                 <div class="card-body">
+                    <p>Note: All numbers are unsigned. Negative number inputs will wrap around to their corresponding unsigned value before calculation.</p>
                     <form>
                         <div class="form-group row">
                             <label for="b_bits" class="col-sm-4 col-form-label">Bits</label>
@@ -38,6 +39,8 @@
                             <div class="col-sm-8">
                                 <select id="b_op" class="form-control" onchange="opSel();">
                                     <option selected disabled>Select...</option>
+                                    <option value="b_add">Add (+)</option>
+                                    <option value="b_sub">Subtract (-)</option>
                                     <option value="b_shl">Left shift (&lt;&lt;)</option>
                                     <option value="b_shr">Right shift (&lt;&lt;)</option>
                                     <option value="b_inv">Inverse (~)</option>
