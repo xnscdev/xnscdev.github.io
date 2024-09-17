@@ -196,6 +196,29 @@ function parseAtomic() {
             return new Function(arg, Math.log);
         }
     }
+    else if (c === 'a') {
+        if (text.startsWith('rcsin')) {
+            text = text.substring(5);
+            let arg = parseBasic();
+            if (!arg)
+                return null;
+            return new Function(arg, Math.asin);
+        }
+        else if (text.startsWith('rccos')) {
+            text = text.substring(5);
+            let arg = parseBasic();
+            if (!arg)
+                return null;
+            return new Function(arg, Math.acos);
+        }
+        else if (text.startsWith('rctan')) {
+            text = text.substring(5);
+            let arg = parseBasic();
+            if (!arg)
+                return null;
+            return new Function(arg, Math.atan);
+        }
+    }
     else if (c === 'c') {
         if (text.startsWith('os')) {
             text = text.substring(2);
