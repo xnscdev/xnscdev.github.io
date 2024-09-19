@@ -218,6 +218,13 @@ function parseAtomic() {
                 return null;
             return new Function(arg, Math.atan);
         }
+        else if (text.startsWith('bs')) {
+            text = text.substring(2);
+            let arg = parseBasic();
+            if (!arg)
+                return null;
+            return new Function(arg, Math.abs);
+        }
     }
     else if (c === 'c') {
         if (text.startsWith('os')) {
